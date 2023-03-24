@@ -1,0 +1,5 @@
+Resources:
+  CloudformationTemplateBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub '${AWS::AccountId}-techmaster-cloudformation'

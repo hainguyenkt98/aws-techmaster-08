@@ -1,0 +1,28 @@
+Resources:
+
+  SshSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group for Bastion instances
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+      VpcId: vpc-06eb8919fea647437
+  
+  MyEC2Instance: 
+    Type: AWS::EC2::Instance
+    Properties: 
+      ImageId: "ami-02ee763250491e04a"
+      InstanceType: t2.micro
+      KeyName: techmaster-demo
+      SubnetId: subnet-0fb9bcba422d5455c
+      SecurityGroupIds:
+      - !Ref SshSecurityGroup
+      BlockDeviceMappings: 
+      - DeviceName: "/dev/sda1"
+        Ebs:
+          VolumeSize: 12
+          VolumeType: gp2
+          Encrypted: true
